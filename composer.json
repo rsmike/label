@@ -1,0 +1,15 @@
+{
+  "name": "rsmike/laabel",
+  "description": "A simple way to organise constant collections and constant=>string dictionaries.",
+  "keywords": [
+    "Font Awesome",
+    "fa",
+    "php"
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "rsmike\\label\\": "src"
+    }
+  }
+}
