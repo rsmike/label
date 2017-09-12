@@ -2,8 +2,9 @@
   "name": "rsmike/label",
   "description": "A simple way to organise constant collections and constant=>string dictionaries.",
   "keywords": [
-    "Font Awesome",
-    "fa",
+    "label",
+    "constant",
+    "dictionary",
     "php"
   ],
   "license": "MIT",
