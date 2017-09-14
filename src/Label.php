@@ -8,8 +8,17 @@ namespace rsmike\label;
 
 abstract class Label
 {
-    public static function label($item = null, $set = 'label') {
-        return isset($item) ? ($item === [] ? array_keys(static::${$set}) : (static::${$set}[$item] ?? $item)) : static::${$set};
+    public static function label($item = [], $set = 'label') {
+        if (!isset($item)) {
+            return null;
+        }
+        if ($item === []) {
+            return static::${$set};
+        }
+        if ($item === [0]) {
+            return array_keys(static::${$set});
+        }
+        return static::${$set}[$item] ?? $item;
     }
 
     public static function __callStatic($name, $arguments) {

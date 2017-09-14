@@ -5,7 +5,7 @@ A simple way to organise constant collections and constant=>string dictionaries.
 ### Example child class (see also simple YN class):
 ```php
 /**
-* @method static string|array abbr($item = null)
+* @method static string|array abbr($item = [])
 **/
 abstract class TestLabels extends rsmike\label\Label
  {
@@ -36,9 +36,13 @@ abstract class TestLabels extends rsmike\label\Label
 
 `echo TestLabels::abbr(TestLabels::TWO)` prints 'TLL'
 
-`TestLabels::abbr()` or `TestLabels::label(null,'abbr')` returns $abbr array (same as calling `TestLabels::$abbr`)
+`echo TestLabels::abbr(42)` prints '42' (passthrough unknown values)
 
-`TestLabels::abbr([])` or `TestLabels::label([],'abbr')` (empty array as first parameter) returns array_keys of $abbr array (same as calling `array_keys(TestLabels::$abbr)`)
+`TestLabels::abbr(null)` always returns null
+
+`TestLabels::abbr([])` or `TestLabels::label([],'abbr')` (empty array as first parameter) returns $abbr array (same as calling `TestLabels::$abbr`)
+
+`TestLabels::abbr([0])` or `TestLabels::label([0],'abbr')` (array with single zero element as first parameter) returns array_keys of $abbr array (same as calling `array_keys(TestLabels::$abbr)`)
 
 ## Installation
 
@@ -54,6 +58,8 @@ or add
 to the `require` section of your `composer.json` file.
 
 ### Changelog
+##### v0.3.4
+* changed default shortcuts to `[]` and `[0]`
 ##### v0.3.4
 * array keys shortcut
 ##### v0.3
