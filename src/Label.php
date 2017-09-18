@@ -2,9 +2,9 @@
 
 namespace rsmike\label;
 
-/**
-* @method static string|array label($item = null)
-**/
+// Example PHPDoc
+
+// @method static string|array label($item = null)
 
 abstract class Label
 {
@@ -22,6 +22,6 @@ abstract class Label
     }
 
     public static function __callStatic($name, $arguments) {
-        return static::label($arguments[0] ?? null, $name);
+        return static::label($arguments[0] ?? [], $name);
     }
 }
