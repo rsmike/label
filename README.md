@@ -2,62 +2,85 @@
 
 A simple way to organise constant collections and constant=>string dictionaries.
 
-### Example child class (see also simple YN class):
+### Example label class:
 ```php
 /**
-* @method static string|array abbr($item = [])
-**/
+ * An example label class.
+ *
+ * @method static string|array status($item = [])
+ * @method static string|array abbr($item = [])
+ */
+ 
 abstract class TestLabels extends rsmike\label\Label
  {
-    const ONE = 1;
-    const TWO = 2;
+    const INACTIVE = 0;
+    const ACTIVE = 1;
     
-    public static $label = [
-        self::ONE => 'One label',
-        self::TWO => 'Two label'
+    protected static $status = [
+        self::ACTIVE => 'Active',
+        self::INACTIVE => 'Inactive'
     ];
 
-    public static $abbr = [
-        self::ONE => 'OLL',
-        self::TWO => 'TLL'
+    protected static $abbr = [
+        self::ACTIVE => 'A',
+        self::INACTIVE => 'I'
     ];
  }
  ```
 
 #### Notes:
-* public static array `$label` should be set for label() function to work with default value
-* every additional array e.g. `$abbrs` should have a corresponding @method static PHPdoc
+* make sure to declare '@method static' PHPDoc for autocomplete to work
 * classes should be declared abstract to avoid instantiation
 
 ### Usage:
-`echo TestLabels::label(TestLabels::ONE)` prints 'One label' 
+`TestLabels::status(TestLabels::ACTIVE);` Returns: 'Active'
 
-`echo TestLabels::label(TestLabels::ONE,'abbr')` prints 'OLL'
+`TestLabels::abbr(0);` Returns: 'I'
 
-`echo TestLabels::abbr(TestLabels::TWO)` prints 'TLL'
+`TestLabels::status(2);` Returns: 2 (pass-through)
 
-`echo TestLabels::abbr(42)` prints '42' (passthrough unknown values)
+`TestLabels::status(null);` Returns: null (pass-through)
 
-`TestLabels::abbr(null)` always returns null
+`TestLabels::status();` Returns:  [1=>'Active', 0=>'Inactive'] (complete set of options. Useful for dropdowns etc. )
 
-`TestLabels::abbr([])` or `TestLabels::label([],'abbr')` (empty array as first parameter) returns $abbr array (same as calling `TestLabels::$abbr`)
+`TestLabels::status([]);` Returns: [1=>'Active', 0=>'Inactive']  (same as above)
 
-`TestLabels::abbr([0])` or `TestLabels::label([0],'abbr')` (array with single zero element as first parameter) returns array_keys of $abbr array (same as calling `array_keys(TestLabels::$abbr)`)
+`TestLabels::status([0]);` Returns: [1, 0] (all available keys)
+
+#### Default value:
+
+An additional parameter may be passed as a default value instead of pass-through:
+
+`TestLabels::status(2, 'N/A');` Returns: 'N/A' (key not found)
+
+`TestLabels::status(null, 'N/A');` Returns: 'N/A' (always returns default value on null)
+
+#### Yes/No:
+
+YN method is a built-in example and may be used in any sub-class
+`TestLabels::YN(1)` Returns: 'Yes'
+
+$YN is protected and may be overridden in a subclass.
 
 ## Installation
 
 Either run
 ```bash
-$ composer require rsmike/label:~0.3
+$ composer require rsmike/label:~1.0
 ```
 
 or add
 ```
-"rsmike/label": "~0.3"
+"rsmike/label": "~1.0"
 ```
 to the `require` section of your `composer.json` file.
 
 ### Changelog
+##### v1.0
+* YN is now builtin
+* label() method removed
+* Fallback value functionality
+
 ##### v0.3.4
 * changed default shortcuts to `[]` and `[0]`
 ##### v0.3.4
@@ -68,4 +91,3 @@ to the `require` section of your `composer.json` file.
 ### TODO
 
  * tests
- * consider making arrays private
