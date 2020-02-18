@@ -15,10 +15,12 @@ abstract class TestLabels extends rsmike\label\Label
  {
     const INACTIVE = 0;
     const ACTIVE = 1;
+    const OTHER = 3;
     
     protected static $status = [
         self::ACTIVE => 'Active',
-        self::INACTIVE => 'Inactive'
+        self::INACTIVE => 'Inactive',
+        self::OTHER => 'Other',
     ];
 
     protected static $abbr = [
@@ -39,6 +41,8 @@ abstract class TestLabels extends rsmike\label\Label
 
 `TestLabels::status(2);` Returns: 2 (pass-through)
 
+`TestLabels::status(3);` Returns: 'Other'
+
 `TestLabels::status(null);` Returns: null (pass-through)
 
 `TestLabels::status();` Returns:  [1=>'Active', 0=>'Inactive'] (complete set of options. Useful for dropdowns etc. )
@@ -46,6 +50,8 @@ abstract class TestLabels extends rsmike\label\Label
 `TestLabels::status([]);` Returns: [1=>'Active', 0=>'Inactive']  (same as above)
 
 `TestLabels::status([0]);` Returns: [1, 0] (all available keys)
+
+`TestLabels::status([[0, 3]]);` Returns: [0=>'Inactive', 3=>'Other'] (subset)
 
 #### Default value:
 
@@ -66,16 +72,19 @@ $YN is protected and may be overridden in a subclass.
 
 Either run
 ```bash
-$ composer require rsmike/label:~1.0
+$ composer require rsmike/label:~1.1
 ```
 
 or add
 ```
-"rsmike/label": "~1.0"
+"rsmike/label": "~1.1"
 ```
 to the `require` section of your `composer.json` file.
 
 ### Changelog
+##### v1.0
+* Subset functionality
+
 ##### v1.0
 * YN is now builtin
 * label() method removed
